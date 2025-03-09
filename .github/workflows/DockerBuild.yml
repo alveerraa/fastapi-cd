@@ -10,12 +10,18 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
-      - name: Build and Push Docker Image
+      - name: Build Docker Image
         run: |
           docker build -t alveerraa/fastapi-cd:latest .
-          docker push alveerraa/fastapi-cd:latest
 
+      - name: Push Docker Image
+        run: |
+          docker push alveerraa/fastapi-cd:latest
 
 
