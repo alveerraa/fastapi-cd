@@ -1,10 +1,10 @@
 FastAPI Dockerized App
+
 This repository contains a FastAPI application that is containerized using Docker and automated with GitHub Actions for continuous integration and deployment.
 
 1. How to Install and Run Locally
 Prerequisites
 Ensure you have the following installed:
-
 Python 3.10+
 pip
 Virtual Environment (venv)
@@ -42,7 +42,6 @@ docker run -p 8000:8000 fastapi-app
 Access the Application in Browser
 http://localhost:8000
 
-
 3. GitHub Actions Workflow Explanation
 This repository uses GitHub Actions to automate building and pushing the Docker image to Docker Hub.
 
@@ -56,31 +55,26 @@ Push Docker Image: Uploads it to Docker Hub.
 
 Workflow Steps:
 name: Docker image build and push
-
 on: push
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Build Docker Image
         run: docker build -t yourusername/fastapi-app:latest .
-
       - name: Push Docker Image
         run: docker push yourusername/fastapi-app:latest
 
         
 4. Steps for Setting Up Docker Token and Secrets
-   
+  
 Create a Docker Hub Token
 Log in to Docker Hub.
 Navigate to Account Settings → Security.
